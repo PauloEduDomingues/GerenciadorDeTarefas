@@ -10,19 +10,25 @@ Para rodar o projeto localmente, siga os passos abaixo. Certifique-se de que voc
     cd backend
     ```
 
-2. **Instale as dependências do backend**:
+2. **Renomeie o arquivo `.env_example` para `.env`**:
+
+    ```bash
+    mv .env_example .env
+    ```
+
+3. **Instale as dependências do backend**:
 
     ```bash
     npm install
     ```
 
-3. **Inicie os serviços do backend com Docker Compose**:
+4. **Inicie os serviços do backend com Docker Compose**:
 
     ```bash
     docker compose up -d
     ```
 
-4. **Inicie o servidor de desenvolvimento do backend**:
+5. **Inicie o servidor de desenvolvimento do backend**:
 
     ```bash
     npm run dev
@@ -42,13 +48,19 @@ Para rodar o projeto localmente, siga os passos abaixo. Certifique-se de que voc
     cd frontend
     ```
 
-3. **Instale as dependências do frontend**:
+3. **Renomeie o arquivo `.env_example` para `.env`**:
+
+    ```bash
+    mv .env_example .env
+    ```
+
+4. **Instale as dependências do frontend**:
 
     ```bash
     npm install
     ```
 
-4. **Inicie o servidor de desenvolvimento do frontend**:
+5. **Inicie o servidor de desenvolvimento do frontend**:
 
     ```bash
     npm run dev
@@ -255,4 +267,37 @@ Essa rota atualiza os detalhes de uma tarefa existente.
 ---
 
 Lembre-se de que todas as rotas a partir do **item 3** exigem autenticação via token JWT. As requisições não autenticadas serão negadas com um erro 401 (Unauthorized).
+
+
+# Detalhes do Frontend
+
+O frontend do projeto foi desenvolvido para oferecer uma experiência intuitiva e simplificada, com três telas principais que atendem diferentes funcionalidades da aplicação:
+
+### 1. Tela de Login (`http://localhost:5173/` ou `http://localhost:5173/login`)
+
+A tela de login é a primeira página que o usuário encontra ao acessar o sistema. Ela permite que usuários registrados façam login com suas credenciais e acessem o restante da aplicação. Por conveniência, essa página pode ser acessada por dois paths diferentes: o root (`/`) e o path `/login`.
+
+- **Imagem do login**:  
+  _[Insira aqui a imagem da tela de login]_
+
+  ![Tela de Login](./assets/login-screen.png)
+
+### 2. Tela de Cadastro de Usuário (`http://localhost:5173/register`)
+
+Nesta tela, usuários novos podem se registrar, criando uma conta ao preencher os campos de nome, email e senha. Essa etapa é fundamental para garantir a segurança e o controle de acesso na aplicação.
+
+- **Imagem do cadastro**:  
+  _[Insira aqui a imagem da tela de cadastro]_
+
+  ![Tela de Cadastro](./assets/register-screen.png)
+
+### 3. Tela de Gerenciamento de Tarefas (`http://localhost:5173/tasks`)
+
+A tela de tarefas é o núcleo da aplicação, onde os usuários autenticados podem gerenciar suas atividades. Eles podem adicionar novas tarefas, editar detalhes, marcar tarefas como concluídas e também excluí-las. Essa interface facilita o controle e organização das tarefas do dia a dia.
+
+- **Imagem do gerenciamento de tarefas**:  
+  _[Insira aqui a imagem da tela de gerenciamento de tarefas]_
+
+  ![Tela de Gerenciamento de Tarefas](./assets/tasks-screen.png)
+
 
