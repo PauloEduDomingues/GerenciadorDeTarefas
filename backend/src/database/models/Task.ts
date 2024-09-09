@@ -1,6 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm"
 import { User } from "./User"
-import { TaskDetail } from "./TaskDetail"
 
 enum Stage {
     TODO = 0,
@@ -23,12 +22,19 @@ export class Task {
         default: Stage.TODO
     })
     stage?: Stage
+    
+    @Column()
+    description: string
+
+    @Column()
+    startDate: Date
+
+    @Column()
+    endDate: Date
+
 
     @ManyToOne(()=>User, (user)=>user.tasks, {eager: true})
     user: User
-
-    @OneToOne(()=>TaskDetail, (taskDetail)=>taskDetail.task, {eager: true, cascade: true})
-    taskDetail: TaskDetail
 
     toJSON() {
         return {
@@ -36,7 +42,9 @@ export class Task {
             userId: this.user.id,
             name: this.name,
             stage: this.stage,
-            taskDetail: this.taskDetail
+            description: this.description,
+            startDate: this.startDate,
+            endDate: this.endDate
         }
     }
 }

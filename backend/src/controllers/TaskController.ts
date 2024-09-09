@@ -1,5 +1,4 @@
 import { Task } from "@/database/models/Task";
-import { TaskDetail } from "@/database/models/TaskDetail";
 import { taskDetailRepository, taskRepository, userRepository } from "@/repositories";
 import { Request, Response } from "express";
 
@@ -21,13 +20,9 @@ export class TaskController{
         const newTask = new Task()
         newTask.name = name
         newTask.user = user
-
-        const taskDetail = new TaskDetail
-        taskDetail.description = description;
-        taskDetail.expectedStartDate = new Date(startDate);
-        taskDetail.expectedEndDate = new Date(endDate);
-
-        newTask.taskDetail = taskDetail;
+        newTask.description = description
+        newTask.startDate = startDate
+        newTask.endDate = endDate
 
         try{
 
@@ -83,16 +78,11 @@ export class TaskController{
                 user: {
                     id: Number(userId),
                 },
-            },
-            relations: ['taskDetail'],
+            }
         });
     
         if (!taskWithUser) {
             return response.status(404).send();
-        }
-    
-        if (taskWithUser.taskDetail) {
-            await taskDetailRepository.delete(taskWithUser.taskDetail.id);
         }
     
         await taskRepository.delete(taskWithUser.id);
