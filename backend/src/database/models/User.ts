@@ -16,6 +16,14 @@ export class User {
     @Column()
     password: string
 
-    @OneToMany(()=>Task, (task)=> task.user, {eager: true, cascade: true})
+    @OneToMany(()=>Task, (task)=> task.user)
     tasks: Task[]
+
+    toJSON() {
+        return {
+            id: this.id,
+            name: this.name,
+            email: this.email,
+        }
+    }
 }

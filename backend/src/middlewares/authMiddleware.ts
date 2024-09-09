@@ -2,9 +2,8 @@ import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
 type JwtPayload = {
-
     userId: number
-
+    name: string
 }
 
 export function authMiddleware(){
@@ -18,9 +17,9 @@ export function authMiddleware(){
             if(!authorization) throw new Error("Token não informado!")
     
             const token = authorization.split(' ')[1]
-            const { userId } = jwt.verify(token, process.env.JWT_SECRET ?? '') as JwtPayload
+            const { userId, name } = jwt.verify(token, process.env.JWT_SECRET ?? '') as JwtPayload
     
-            request.body.tokenPayload = {userId}
+            request.body.tokenPayload = {userId, name}
     
             next()
 
@@ -29,7 +28,7 @@ export function authMiddleware(){
             return response.status(401).json({
             message: error.message
             });
-
+            
         }
     }
 }

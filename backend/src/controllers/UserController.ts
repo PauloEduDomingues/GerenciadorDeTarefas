@@ -16,6 +16,19 @@ export class UserController{
         newUser.email = email
         newUser.password = await bcrypt.hash(password, 10)
 
+        const user = await userRepository.findOne({
+            where: {
+                email
+            }
+        })
+
+        if (user) {
+
+            return response.status(401).json({
+                message: "Email ja cadastrado no banco de dados!",
+            })
+        }
+
         try{
 
             const user = await userRepository.save(newUser)
@@ -47,8 +60,10 @@ export class UserController{
             return response.status(401).json({message: "Email ou senha inválidos!"})
         }
 
-        const token = jwt.sign({userId: user.id}, process.env.JWT_SECRET, {expiresIn: 300})
-        return response.json({ auth: true, token: token })
+        const token = jwt.sign({userId: user.id, name: user.name}, process.env.JWT_SECRET, {expiresIn: 1800})
+
+        return response.json({ auth: true, token: token, user: user })
+
     }
 
     async update(request: Request, response: Response){
@@ -57,6 +72,7 @@ export class UserController{
         const newUserData = request.body
 
         try{
+            
             const user = await userRepository.findOneBy({id: Number(userId)})
 
             if(!user){

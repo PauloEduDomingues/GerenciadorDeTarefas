@@ -1,0 +1,89 @@
+.modal-container {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.modal {
+  max-width: 480px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem; 
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-close-button {
+  border: none;
+  width: 32px;
+  height: 32px;
+  text-align: center;
+  font-size: 24px;
+  cursor: pointer;
+  background-color: transparent;
+}
+  
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modal-content div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.modal-content div textarea {
+  resize: none;
+}
+
+.modal-content div input[type="text"], 
+.modal-content div textarea, 
+.modal-content div input[type="datetime-local"] {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #DDD;
+  outline: none;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: end;
+  margin-top: 16px;
+}
+
+.modal-footer button{
+ padding: 6px 8px;
+ border-radius: 6px;
+ border: 1px solid #DDD;
+ background-color: rgb(100, 200, 100);
+ cursor: pointer;
+}
+
+.modal-footer button:hover {
+  background-color: rgb(100, 200, 100);
+  transform: scale(1.05);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+
+
+

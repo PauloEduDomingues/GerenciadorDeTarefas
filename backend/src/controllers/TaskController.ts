@@ -1,12 +1,13 @@
 import { Task } from "@/database/models/Task";
-import { taskRepository, userRepository } from "@/repositories";
+import { TaskDetail } from "@/database/models/TaskDetail";
+import { taskDetailRepository, taskRepository, userRepository } from "@/repositories";
 import { Request, Response } from "express";
 
 export class TaskController{
 
     async create(request: Request, response: Response){
 
-        const { name, date, description } = request.body
+        const { name, startDate, endDate, description } = request.body
         const { userId } = request.params
 
         const user = await userRepository.findOneBy({
@@ -19,14 +20,20 @@ export class TaskController{
 
         const newTask = new Task()
         newTask.name = name
-        newTask.description = description
-        newTask.date = date
+        newTask.user = user
+
+        const taskDetail = new TaskDetail
+        taskDetail.description = description;
+        taskDetail.expectedStartDate = new Date(startDate);
+        taskDetail.expectedEndDate = new Date(endDate);
+
+        newTask.taskDetail = taskDetail;
 
         try{
 
-            const task = await taskRepository.save(newTask)
-
-            return response.status(201).json(task)
+            await taskRepository.save(newTask)
+           
+            return response.status(201).json(newTask)
 
         }catch(error){
 
@@ -62,58 +69,57 @@ export class TaskController{
 
         await taskRepository.save(updatedTask)
 
-        return response.status(201).json(taskRepository)
+        return response.status(201).json(updatedTask)
 
     }
 
-    async delete(request:Request, response:Response){
+    async delete(request: Request, response: Response) {
 
-        const { userId, taskId } = request.params
-
+        const { userId, taskId } = request.params;
+    
         const taskWithUser = await taskRepository.findOne({
             where: {
                 id: Number(taskId),
                 user: {
-                    id: Number(userId)
-                }
-            }
-        })
-        
-        if(!taskWithUser){
-            return response.send(404).send();
+                    id: Number(userId),
+                },
+            },
+            relations: ['taskDetail'],
+        });
+    
+        if (!taskWithUser) {
+            return response.status(404).send();
         }
-
-        await taskRepository.delete(taskWithUser.id)
+    
+        if (taskWithUser.taskDetail) {
+            await taskDetailRepository.delete(taskWithUser.taskDetail.id);
+        }
+    
+        await taskRepository.delete(taskWithUser.id);
+        
         return response.status(204).send();
     }
+    
 
-    async findById(request:Request, response:Response){
+    async listByUserId(request: Request, response: Response) {
 
-        const { taskId } = request.params
-
-        const task = await taskRepository.findOneBy({
-            id: Number(taskId)
-        })
-
-        if(!task){
-            return response.send(404).send()
-        }
-
-        return response.status(200).json(task)
-    }
-
-    async listByUserId(request: Request, response: Response){
-
-        const { userId } = request.params
-
+        const { userId } = request.params;
+    
         const user = await userRepository.findOneBy({
-            id: Number(userId)
-        })
-
-        if(!user){
-            return response.send(404).send();
+            id: Number(userId),
+        });
+    
+        if (!user) {
+            return response.status(404).send();
         }
-
-        return response.status(200).json(user.tasks)
-    } 
+    
+        const tasks = await taskRepository.find({
+            where: {
+                user: user,
+            },
+        });
+    
+        return response.status(200).json(tasks);
+    }
+     
 }
