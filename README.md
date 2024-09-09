@@ -278,26 +278,30 @@ O frontend do projeto foi desenvolvido para oferecer uma experiência intuitiva 
 A tela de login é a primeira página que o usuário encontra ao acessar o sistema. Ela permite que usuários registrados façam login com suas credenciais e acessem o restante da aplicação. Por conveniência, essa página pode ser acessada por dois paths diferentes: o root (`/`) e o path `/login`.
 
 - **Imagem do login**:  
-  _[Insira aqui a imagem da tela de login]_
+  ![image](https://github.com/user-attachments/assets/c46e865e-1251-4ce3-a314-9a366c644b72)
 
-  ![Tela de Login](./assets/login-screen.png)
 
 ### 2. Tela de Cadastro de Usuário (`http://localhost:5173/register`)
 
 Nesta tela, usuários novos podem se registrar, criando uma conta ao preencher os campos de nome, email e senha. Essa etapa é fundamental para garantir a segurança e o controle de acesso na aplicação.
 
 - **Imagem do cadastro**:  
-  _[Insira aqui a imagem da tela de cadastro]_
+![image](https://github.com/user-attachments/assets/f09615f9-91fa-4719-9775-2702f0fab123)
 
-  ![Tela de Cadastro](./assets/register-screen.png)
 
 ### 3. Tela de Gerenciamento de Tarefas (`http://localhost:5173/tasks`)
 
 A tela de tarefas é o núcleo da aplicação, onde os usuários autenticados podem gerenciar suas atividades. Eles podem adicionar novas tarefas, editar detalhes, marcar tarefas como concluídas e também excluí-las. Essa interface facilita o controle e organização das tarefas do dia a dia.
 
 - **Imagem do gerenciamento de tarefas**:  
-  _[Insira aqui a imagem da tela de gerenciamento de tarefas]_
+ ![image](https://github.com/user-attachments/assets/82587ac5-316b-4e6f-8d5e-e35bd5446333)
 
-  ![Tela de Gerenciamento de Tarefas](./assets/tasks-screen.png)
+- **Imagem do gerenciamento de tarefas (modal de Inserção)**:
+ ![image](https://github.com/user-attachments/assets/2b4f9fbb-0804-4309-a86c-60fb116abdf4)
+
+- **Imagem do gerenciamento de tarefas (modal de Atualização)**:
+  ![image](https://github.com/user-attachments/assets/04f99f31-6d66-4da8-97e7-a3a92c17a7ba)
+
+
 
 
